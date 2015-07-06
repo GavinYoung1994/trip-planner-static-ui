@@ -48,6 +48,19 @@ function deleteWhenDelete() {
     	}
     	$(this).parent()[0].remove();
     	// console.log(arrayOfDays);
+    	for (var i = 0; i < arrayOfDays[current-1].hotel.length; i++) {
+           if (arrayOfDays[current-1].hotel[i] === $(this).closest('div')[0].outerHTML)
+               arrayOfDays[current-1].hotel.splice(i, 1);
+		}
+		for (var i = 0; i < arrayOfDays[current-1].rest.length; i++) {
+		   if (arrayOfDays[current-1].rest[i] === $(this).closest('div')[0].outerHTML)
+		       arrayOfDays[current-1].rest.splice(i, 1);
+		}
+		for (var i = 0; i < arrayOfDays[current-1].things.length; i++) {
+		   console.log(arrayOfDays[current-1].things)
+		   if (arrayOfDays[current-1].things[i] === $(this).closest('div')[0].outerHTML)
+		       arrayOfDays[current-1].things.splice(i, 1);
+		}
 	});
 }
 
@@ -59,24 +72,28 @@ $('#add-day').click(function () {
 
 // changing days
 $('.day-buttons').delegate('.day-btn', 'click', function () {
-	$('.current-day').removeClass('current-day');
-	$(this).addClass('current-day');
-	// remove items from the day
-	$('.itinerary-item').remove();
-	arrayOfDays[current-1].markers.forEach(function(marker) {marker.setMap(null);})
-	current = parseInt($(this).text());
-	for(var i=0; i<arrayOfDays[current-1].markers.length;i++){
-		arrayOfDays[current-1].markers[i].setMap(map);
-	}
-	for (var i = 0; i < arrayOfDays[current-1].hotel.length; i++) {
-		$("#h-list").append(arrayOfDays[current-1].hotel[i]);
-	};
-	for (var i = 0; i < arrayOfDays[current-1].rest.length; i++) {
-		$("#r-list").append(arrayOfDays[current-1].rest[i]);
-	};
-	for (var i = 0; i < arrayOfDays[current-1].things.length; i++) {
-		$("#t-list").append(arrayOfDays[current-1].things[i]);
-	};
+    $('.current-day').removeClass('current-day');
+    $(this).addClass('current-day');
+    // remove items from the day
+    $('.itinerary-item').remove();
+    arrayOfDays[current-1].markers.forEach(function(marker) {marker.setMap(null);})
+    current = parseInt($(this).text());
+    // changing the day title
+
+    console.log($('#day-title').children(0)[0].innerHTML)
+    $('#day-title').children(0)[0].innerHTML = 'Day ' + current;
+    for(var i=0; i<arrayOfDays[current-1].markers.length;i++){
+        arrayOfDays[current-1].markers[i].setMap(map);
+    }
+    for (var i = 0; i < arrayOfDays[current-1].hotel.length; i++) {
+        $("#h-list").append(arrayOfDays[current-1].hotel[i]);
+    };
+    for (var i = 0; i < arrayOfDays[current-1].rest.length; i++) {
+        $("#r-list").append(arrayOfDays[current-1].rest[i]);
+    };
+    for (var i = 0; i < arrayOfDays[current-1].things.length; i++) {
+        $("#t-list").append(arrayOfDays[current-1].things[i]);
+    };
 })
 
 
